@@ -1,0 +1,179 @@
+/* Colores y estilos generales */
+:root {
+  --fondo: #f3f5fb;
+  --tarjeta: #ffffff;
+  --texto: #1f2937;
+  --texto-suave: #6b7280;
+  --acento: #4f46e5;
+  --borde: #e5e7eb;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  line-height: 1.5;
+  padding: 24px 16px 40px;
+}
+
+.contenedor {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 1.75rem;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+.tarjeta {
+  background: var(--tarjeta);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 14px rgba(31, 41, 55, 0.06);
+}
+
+/* Racha */
+.racha {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 28px 20px;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #ffffff;
+}
+
+.racha-fuego {
+  font-size: 2.5rem;
+}
+
+.racha-numero {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.racha-texto {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* Formulario */
+.campo {
+  margin-bottom: 14px;
+}
+
+label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+input {
+  width: 100%;
+  padding: 11px 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--texto);
+  background: #ffffff;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--acento);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+button {
+  width: 100%;
+  margin-top: 4px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: #ffffff;
+  background: var(--acento);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #4338ca;
+}
+
+/* Lista de sesiones */
+#lista-sesiones {
+  list-style: none;
+}
+
+.sesion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--borde);
+}
+
+.sesion:last-child {
+  border-bottom: none;
+}
+
+.sesion-tema {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.sesion-fecha {
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+}
+
+.sesion-minutos {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--acento);
+  background: #eef2ff;
+  border-radius: 999px;
+}
+
+.vacio {
+  padding: 12px 0;
+  text-align: center;
+  color: var(--texto-suave);
+}
+
+/* Pantallas muy pequeñas */
+@media (max-width: 380px) {
+  body {
+    padding: 16px 12px 32px;
+  }
+
+  .tarjeta {
+    padding: 16px;
+  }
+
+  .racha-numero {
+    font-size: 3.25rem;
+  }
+}
