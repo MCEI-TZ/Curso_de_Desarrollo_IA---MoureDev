@@ -1,11 +1,23 @@
-/* Colores y estilos generales */
-:root {
+/* Colores base. Cada tema cambia solo los cuatro primeros. */
+body {
   --fondo: #f3f5fb;
   --tarjeta: #ffffff;
   --texto: #1f2937;
-  --texto-suave: #6b7280;
   --acento: #4f46e5;
-  --borde: #e5e7eb;
+
+  /* El resto se calcula solo a partir de los colores base */
+  --texto-suave: color-mix(in srgb, var(--texto) 62%, transparent);
+  --borde: color-mix(in srgb, var(--texto) 14%, transparent);
+  --acento-suave: color-mix(in srgb, var(--acento) 12%, var(--tarjeta));
+  --racha-inicio: color-mix(in srgb, var(--acento) 85%, black);
+  --racha-fin: color-mix(in srgb, var(--acento) 65%, black);
+
+  color-scheme: light;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  line-height: 1.5;
+  padding: 24px 16px 40px;
 }
 
 * {
@@ -14,12 +26,30 @@
   padding: 0;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: var(--fondo);
-  color: var(--texto);
-  line-height: 1.5;
-  padding: 24px 16px 40px;
+/* Segundo tema claro */
+body.tema-arena {
+  --fondo: #faf4e8;
+  --tarjeta: #fffaf0;
+  --texto: #402f20;
+  --acento: #b45309;
+}
+
+/* Primer tema oscuro */
+body.tema-oscuro {
+  color-scheme: dark;
+  --fondo: #11131b;
+  --tarjeta: #1d202c;
+  --texto: #f3f4f6;
+  --acento: #818cf8;
+}
+
+/* Segundo tema oscuro */
+body.tema-noche {
+  color-scheme: dark;
+  --fondo: #0c1714;
+  --tarjeta: #14241e;
+  --texto: #e8f3ed;
+  --acento: #34d399;
 }
 
 .contenedor {
@@ -43,7 +73,67 @@ h2 {
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 14px rgba(31, 41, 55, 0.06);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--texto) 8%, transparent);
+}
+
+/* Selector de tema */
+.barra-tema {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.barra-tema label {
+  margin-bottom: 0;
+}
+
+select {
+  padding: 8px 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--texto);
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--acento);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--acento) 20%, transparent);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.colores-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 16px;
+}
+
+.campo-color {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.campo-color label {
+  margin-bottom: 0;
+}
+
+input[type="color"] {
+  width: 52px;
+  height: 38px;
+  padding: 2px;
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 /* Racha */
@@ -53,7 +143,7 @@ h2 {
   justify-content: center;
   gap: 28px;
   padding: 28px 20px;
-  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  background: linear-gradient(135deg, var(--racha-inicio), var(--racha-fin));
   color: #ffffff;
 }
 
@@ -109,7 +199,7 @@ input {
   font-size: 1rem;
   font-family: inherit;
   color: var(--texto);
-  background: #ffffff;
+  background: var(--tarjeta);
   border: 1px solid var(--borde);
   border-radius: 10px;
 }
@@ -117,7 +207,7 @@ input {
 input:focus {
   outline: none;
   border-color: var(--acento);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--acento) 20%, transparent);
 }
 
 button {
@@ -128,14 +218,14 @@ button {
   font-weight: 600;
   font-family: inherit;
   color: #ffffff;
-  background: var(--acento);
+  background: var(--racha-inicio);
   border: none;
   border-radius: 10px;
   cursor: pointer;
 }
 
 button:hover {
-  background: #4338ca;
+  filter: brightness(0.9);
 }
 
 /* Lista de sesiones */
@@ -171,8 +261,8 @@ button:hover {
   padding: 4px 10px;
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--acento);
-  background: #eef2ff;
+  color: var(--racha-inicio);
+  background: var(--acento-suave);
   border-radius: 999px;
 }
 

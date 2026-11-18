@@ -1,6 +1,18 @@
 // Clave usada para guardar los datos en el navegador
 const CLAVE_GUARDADO = "diario-estudio-sesiones";
 
+// Clave y opciones del tema
+const CLAVE_TEMA = "diario-estudio-tema";
+const TEMAS = ["claro", "arena", "oscuro", "noche", "personalizado"];
+const COLORES = ["--fondo", "--tarjeta", "--texto", "--acento"];
+
+const coloresPorDefecto = {
+  "--fondo": "#f3f5fb",
+  "--tarjeta": "#ffffff",
+  "--texto": "#1f2937",
+  "--acento": "#4f46e5"
+};
+
 // Elementos de la página que usamos
 const formulario = document.getElementById("formulario-sesion");
 const campoFecha = document.getElementById("fecha");
@@ -9,9 +21,21 @@ const campoMinutos = document.getElementById("minutos");
 const numeroRacha = document.getElementById("racha-numero");
 const numeroMejorRacha = document.getElementById("mejor-racha-numero");
 const listaSesiones = document.getElementById("lista-sesiones");
+const selectorTema = document.getElementById("selector-tema");
+const panelColores = document.getElementById("colores-personalizados");
+const entradasColor = {
+  "--fondo": document.getElementById("color-fondo"),
+  "--tarjeta": document.getElementById("color-tarjeta"),
+  "--texto": document.getElementById("color-texto"),
+  "--acento": document.getElementById("color-acento")
+};
 
 // Aquí guardamos las sesiones mientras la página está abierta
 let sesiones = [];
+
+// Tema activo y colores elegidos para el tema personalizado
+let temaActual = "claro";
+let coloresPersonalizados = { ...coloresPorDefecto };
 
 // Devuelve una fecha como texto YYYY-MM-DD usando la hora LOCAL del usuario.
 // No usamos toISOString() porque convierte a UTC y podría cambiar el día.
@@ -59,6 +83,67 @@ function guardarSesiones() {
     localStorage.setItem(CLAVE_GUARDADO, JSON.stringify(sesiones));
   } catch (error) {
     console.error("No se pudieron guardar las sesiones.", error);
+  }
+}
+
+// Carga el tema elegido y los colores personalizados
+function cargarTema() {
+  try {
+    const texto = localStorage.getItem(CLAVE_TEMA);
+    if (!texto) {
+      return;
+    }
+    const datos = JSON.parse(texto);
+
+    if (datos && TEMAS.includes(datos.tema)) {
+      temaActual = datos.tema;
+    }
+
+    if (datos && datos.colores) {
+      for (const nombre of COLORES) {
+        const color = datos.colores[nombre];
+        if (typeof color === "string" && /^#[0-9a-fA-F]{6}$/.test(color)) {
+          coloresPersonalizados[nombre] = color;
+        }
+      }
+    }
+  } catch (error) {
+    console.error("No se pudo leer el tema guardado.", error);
+  }
+}
+
+// Guarda el tema elegido y los colores personalizados
+function guardarTema() {
+  try {
+    localStorage.setItem(CLAVE_TEMA, JSON.stringify({
+      tema: temaActual,
+      colores: coloresPersonalizados
+    }));
+  } catch (error) {
+    console.error("No se pudo guardar el tema.", error);
+  }
+}
+
+// Muestra en la página el tema elegido
+function aplicarTema() {
+  for (const tema of TEMAS) {
+    document.body.classList.remove("tema-" + tema);
+  }
+  for (const nombre of COLORES) {
+    document.body.style.removeProperty(nombre);
+  }
+
+  selectorTema.value = temaActual;
+  panelColores.hidden = temaActual !== "personalizado";
+
+  if (temaActual !== "claro") {
+    document.body.classList.add("tema-" + temaActual);
+  }
+
+  if (temaActual === "personalizado") {
+    for (const nombre of COLORES) {
+      document.body.style.setProperty(nombre, coloresPersonalizados[nombre]);
+    }
   }
 }
 
@@ -219,8 +304,30 @@ formulario.addEventListener("submit", function (evento) {
   campoTema.focus();
 });
 
+// Al cambiar el tema, lo aplicamos y lo guardamos
+selectorTema.addEventListener("change", function () {
+  temaActual = selectorTema.value;
+  aplicarTema();
+  guardarTema();
+});
+
+// Al cambiar un color, preparamos la combinación personalizada
+for (const nombre of COLORES) {
+  entradasColor[nombre].addEventListener("input", function () {
+    coloresPersonalizados[nombre] = entradasColor[nombre].value;
+    temaActual = "personalizado";
+    aplicarTema();
+    guardarTema();
+  });
+}
+
 // Preparamos la página al abrirla
 function iniciar() {
+  cargarTema();
+  for (const nombre of COLORES) {
+    entradasColor[nombre].value = coloresPersonalizados[nombre];
+  }
+  aplicarTema();
   cargarSesiones();
   campoFecha.value = fechaLocalComoTexto(new Date());
   renderizar();

@@ -10,6 +10,41 @@
   <main class="contenedor">
     <h1>Diario de Estudio</h1>
 
+    <!-- Menú para elegir el tema -->
+    <div class="barra-tema">
+      <label for="selector-tema">Tema visual</label>
+      <select id="selector-tema">
+        <option value="claro">Claro</option>
+        <option value="arena">Arena</option>
+        <option value="oscuro">Oscuro</option>
+        <option value="noche">Noche</option>
+        <option value="personalizado">Personalizado</option>
+      </select>
+    </div>
+
+    <!-- Colores del tema personalizado -->
+    <section class="tarjeta" id="colores-personalizados" hidden>
+      <h2>Tu combinación</h2>
+      <div class="colores-grid">
+        <div class="campo-color">
+          <label for="color-fondo">Fondo</label>
+          <input type="color" id="color-fondo" value="#f3f5fb">
+        </div>
+        <div class="campo-color">
+          <label for="color-tarjeta">Tarjetas</label>
+          <input type="color" id="color-tarjeta" value="#ffffff">
+        </div>
+        <div class="campo-color">
+          <label for="color-texto">Texto</label>
+          <input type="color" id="color-texto" value="#1f2937">
+        </div>
+        <div class="campo-color">
+          <label for="color-acento">Acento</label>
+          <input type="color" id="color-acento" value="#4f46e5">
+        </div>
+      </div>
+    </section>
+
     <!-- Racha actual y mejor racha -->
     <section class="tarjeta racha">
       <div class="racha-bloque">

@@ -14,6 +14,7 @@ programar.
 ## Datos
 - localStorage, clave `diario-estudio-sesiones`: array de `{ fecha: "AAAA-MM-DD", tema,
 minutos, creadoEn }` (`creadoEn` solo ordena sesiones del mismo día).
+- El tema elegido se guarda aparte en `diario-estudio-tema` (tema + 4 colores).
 - Si cambias la forma de los datos, mantén compatibilidad con lo ya guardado o el usuario
 perderá sus sesiones.
 ## Fechas y racha (fácil equivocarse)
