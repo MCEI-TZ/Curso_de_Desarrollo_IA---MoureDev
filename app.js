@@ -20,6 +20,7 @@ const campoTema = document.getElementById("tema");
 const campoMinutos = document.getElementById("minutos");
 const numeroRacha = document.getElementById("racha-numero");
 const numeroMejorRacha = document.getElementById("mejor-racha-numero");
+const numeroMinutosSemana = document.getElementById("minutos-semana");
 const listaSesiones = document.getElementById("lista-sesiones");
 const selectorTema = document.getElementById("selector-tema");
 const panelColores = document.getElementById("colores-personalizados");
@@ -223,10 +224,46 @@ function calcularMejorRacha() {
   return mejor;
 }
 
+// Devuelve el lunes de la semana actual como texto YYYY-MM-DD (fecha local)
+function inicioDeSemana() {
+  const hoy = textoComoFechaLocal(fechaLocalComoTexto(new Date()));
+  const diaSemana = hoy.getDay(); // 0 es domingo, 1 es lunes...
+  const diasDesdeLunes = (diaSemana + 6) % 7;
+  hoy.setDate(hoy.getDate() - diasDesdeLunes);
+  return fechaLocalComoTexto(hoy);
+}
+
+// Suma los minutos de las sesiones de esta semana (del lunes a hoy).
+// Las fechas futuras y los datos con formato inesperado no cuentan.
+function calcularMinutosSemana() {
+  const inicio = inicioDeSemana();
+  const hoy = fechaLocalComoTexto(new Date());
+  let total = 0;
+
+  for (const sesion of sesiones) {
+    const texto = sesion.fecha;
+    const minutos = sesion.minutos;
+
+    if (typeof texto !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(texto)) {
+      continue;
+    }
+    if (texto < inicio || texto > hoy) {
+      continue;
+    }
+    if (!Number.isFinite(minutos) || minutos <= 0) {
+      continue;
+    }
+    total += minutos;
+  }
+
+  return total;
+}
+
 // Dibuja en la pantalla la racha y la lista de sesiones
 function renderizar() {
   numeroRacha.textContent = calcularRacha();
   numeroMejorRacha.textContent = calcularMejorRacha();
+  numeroMinutosSemana.textContent = calcularMinutosSemana();
 
   listaSesiones.innerHTML = "";
 

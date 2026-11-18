@@ -181,6 +181,28 @@ input[type="color"] {
   text-align: center;
 }
 
+/* Minutos de esta semana */
+.semana {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 16px 20px;
+}
+
+.semana-numero {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--racha-inicio);
+}
+
+.semana-texto {
+  font-size: 1rem;
+  color: var(--texto-suave);
+}
+
 /* Formulario */
 .campo {
   margin-bottom: 14px;

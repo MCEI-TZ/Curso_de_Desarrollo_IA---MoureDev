@@ -7,6 +7,7 @@ lista de sesiones.
 - Selector con 5 temas: Claro, Arena (2 light), Oscuro, Noche (2 dark) y Personalizado
 (4 selectores de color: fondo, tarjeta, texto, acento).
 - Datos en localStorage. mejor racha calculada en `app.js`, junto a la actual.
+- Total de minutos estudiados esta semana (lunes a hoy) en tarjeta propia bajo las rachas.
 ## Decisiones (y por qué)
 - Sin backend ni dependencias: cualquiera debe poder abrirlo con doble clic.
 - Fecha editable en el formulario: permite registrar días pasados y ver la racha crecer.
@@ -15,7 +16,11 @@ dos valores que puedan desincronizarse. Si se añade borrado, podría bajar (ace
 - Sin emoji nuevo en la mejor racha y dos bloques apilados en móvil: minimalismo pedido.
 - Tema guardado en clave aparte `diario-estudio-tema`: no cambia el formato de sesiones y
 recuerda la elección al recargar. El panel de colores solo aparece en Personalizado.
+- Semana natural de lunes a domingo, contada hasta hoy: es la convención en España y evita
+contar fechas futuras. Se deriva de las sesiones, sin guardar, igual que la mejor racha.
+Sin temporizador: se actualiza al recargar o al guardar una sesión (aceptado).
 ## Aprendizajes y errores a evitar
+- Inicio de semana con `(getDay() + 6) % 7` y `setDate()`: `getDay()` devuelve 0 en domingo.
 - Las variables CSS derivadas van en `body`, no en `:root`: si se declaran en `:root`, se
 calculan con los colores viejos y no reaccionan al tema que sobrescribe `body`.
 - El id `tema` ya es del campo «Tema» del formulario; el selector usa `selector-tema`.

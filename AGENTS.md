@@ -26,6 +26,8 @@ pero ayer sí, la racha sigue viva y se cuenta desde ayer.
 - La mejor racha se calcula desde las sesiones en cada renderizado: no se guarda, para no
 duplicar estado ni necesitar migraciones. Ignora fechas futuras y con formato inesperado.
 - Para comparar días consecutivos usa `setDate`, nunca diferencias de milisegundos (DST).
+- La semana va de lunes a domingo (hoy inclusive). El lunes se halla con `getDay()` y
+`setDate()` en fecha local; el total de minutos se deriva de las sesiones, no se guarda.
 ## Forma de trabajar
 - Haz solo lo que se pide: no añadas funcionalidades por tu cuenta.
 - Cambios pequeños y enfocados; no reescribas lo que ya funciona.
