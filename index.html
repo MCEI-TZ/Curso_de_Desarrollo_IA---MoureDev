@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diario de Estudio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="contenedor">
+    <h1>Diario de Estudio</h1>
+
+    <!-- Menú para elegir el tema -->
+    <div class="barra-tema">
+      <label for="selector-tema">Tema visual</label>
+      <select id="selector-tema">
+        <option value="claro">Claro</option>
+        <option value="arena">Arena</option>
+        <option value="oscuro">Oscuro</option>
+        <option value="noche">Noche</option>
+        <option value="personalizado">Personalizado</option>
+      </select>
+    </div>
+
+    <!-- Colores del tema personalizado -->
+    <section class="tarjeta" id="colores-personalizados" hidden>
+      <h2>Tu combinación</h2>
+      <div class="colores-grid">
+        <div class="campo-color">
+          <label for="color-fondo">Fondo</label>
+          <input type="color" id="color-fondo" value="#f3f5fb">
+        </div>
+        <div class="campo-color">
+          <label for="color-tarjeta">Tarjetas</label>
+          <input type="color" id="color-tarjeta" value="#ffffff">
+        </div>
+        <div class="campo-color">
+          <label for="color-texto">Texto</label>
+          <input type="color" id="color-texto" value="#1f2937">
+        </div>
+        <div class="campo-color">
+          <label for="color-acento">Acento</label>
+          <input type="color" id="color-acento" value="#4f46e5">
+        </div>
+      </div>
+    </section>
+
+    <!-- Racha actual y mejor racha -->
+    <section class="tarjeta racha">
+      <div class="racha-bloque">
+        <span class="racha-fuego">🔥</span>
+        <span class="racha-numero" id="racha-numero">0</span>
+        <span class="racha-texto">días de racha</span>
+      </div>
+      <div class="racha-bloque racha-bloque-mejor">
+        <span class="racha-numero-mejor" id="mejor-racha-numero">0</span>
+        <span class="racha-texto">Mejor racha</span>
+      </div>
+    </section>
+
+    <!-- Formulario para registrar una sesión -->
+    <section class="tarjeta">
+      <h2>Nueva sesión</h2>
+      <form id="formulario-sesion">
+        <div class="campo">
+          <label for="fecha">Fecha</label>
+          <input type="date" id="fecha" required>
+        </div>
+
+        <div class="campo">
+          <label for="tema">Tema</label>
+          <input type="text" id="tema" required placeholder="¿Qué has estudiado?">
+        </div>
+
+        <div class="campo">
+          <label for="minutos">Minutos</label>
+          <input type="number" id="minutos" min="1" step="1" required>
+        </div>
+
+        <button type="submit">Guardar sesión</button>
+      </form>
+    </section>
+
+    <!-- Lista de sesiones -->
+    <section class="tarjeta">
+      <h2>Sesiones</h2>
+      <ul id="lista-sesiones"></ul>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
