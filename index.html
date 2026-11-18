@@ -10,11 +10,17 @@
   <main class="contenedor">
     <h1>Diario de Estudio</h1>
 
-    <!-- Racha actual -->
+    <!-- Racha actual y mejor racha -->
     <section class="tarjeta racha">
-      <span class="racha-fuego">🔥</span>
-      <span class="racha-numero" id="racha-numero">0</span>
-      <span class="racha-texto">días de racha</span>
+      <div class="racha-bloque">
+        <span class="racha-fuego">🔥</span>
+        <span class="racha-numero" id="racha-numero">0</span>
+        <span class="racha-texto">días de racha</span>
+      </div>
+      <div class="racha-bloque racha-bloque-mejor">
+        <span class="racha-numero-mejor" id="mejor-racha-numero">0</span>
+        <span class="racha-texto">Mejor racha</span>
+      </div>
     </section>
 
     <!-- Formulario para registrar una sesión -->

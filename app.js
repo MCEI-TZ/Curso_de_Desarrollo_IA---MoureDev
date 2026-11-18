@@ -7,6 +7,7 @@ const campoFecha = document.getElementById("fecha");
 const campoTema = document.getElementById("tema");
 const campoMinutos = document.getElementById("minutos");
 const numeroRacha = document.getElementById("racha-numero");
+const numeroMejorRacha = document.getElementById("mejor-racha-numero");
 const listaSesiones = document.getElementById("lista-sesiones");
 
 // Aquí guardamos las sesiones mientras la página está abierta
@@ -93,9 +94,54 @@ function calcularRacha() {
   return racha;
 }
 
+// Devuelve el texto del día siguiente de una fecha YYYY-MM-DD
+function textoDiaSiguiente(texto) {
+  const fecha = textoComoFechaLocal(texto);
+  fecha.setDate(fecha.getDate() + 1);
+  return fechaLocalComoTexto(fecha);
+}
+
+// Calcula la mejor racha de todos los tiempos a partir de las sesiones guardadas.
+// Cuenta cada día una sola vez e ignora fechas futuras y con formato inesperado.
+// Comparamos días con setDate (no con milisegundos) para respetar los cambios de hora.
+function calcularMejorRacha() {
+  const hoy = fechaLocalComoTexto(new Date());
+  const dias = new Set();
+
+  for (const sesion of sesiones) {
+    const texto = sesion.fecha;
+    if (typeof texto !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(texto) || texto > hoy) {
+      continue;
+    }
+    dias.add(texto);
+  }
+
+  // YYYY-MM-DD se ordena por fecha automáticamente
+  const ordenados = Array.from(dias).sort();
+
+  let mejor = 0;
+  let actual = 0;
+  let anterior = null;
+
+  for (const dia of ordenados) {
+    if (anterior !== null && textoDiaSiguiente(anterior) === dia) {
+      actual++;
+    } else {
+      actual = 1;
+    }
+    if (actual > mejor) {
+      mejor = actual;
+    }
+    anterior = dia;
+  }
+
+  return mejor;
+}
+
 // Dibuja en la pantalla la racha y la lista de sesiones
 function renderizar() {
   numeroRacha.textContent = calcularRacha();
+  numeroMejorRacha.textContent = calcularMejorRacha();
 
   listaSesiones.innerHTML = "";
 

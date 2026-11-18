@@ -49,12 +49,24 @@ h2 {
 /* Racha */
 .racha {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  gap: 28px;
   padding: 28px 20px;
   background: linear-gradient(135deg, #4f46e5, #7c3aed);
   color: #ffffff;
+}
+
+.racha-bloque {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.racha-bloque-mejor {
+  padding-left: 28px;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .racha-fuego {
@@ -67,9 +79,16 @@ h2 {
   line-height: 1;
 }
 
+.racha-numero-mejor {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
 .racha-texto {
   font-size: 1rem;
   opacity: 0.9;
+  text-align: center;
 }
 
 /* Formulario */
@@ -161,6 +180,21 @@ button:hover {
   padding: 12px 0;
   text-align: center;
   color: var(--texto-suave);
+}
+
+/* En móvil, las dos rachas se apilan */
+@media (max-width: 480px) {
+  .racha {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .racha-bloque-mejor {
+    padding-left: 0;
+    padding-top: 16px;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+  }
 }
 
 /* Pantallas muy pequeñas */
