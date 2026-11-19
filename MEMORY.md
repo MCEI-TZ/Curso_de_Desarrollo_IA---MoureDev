@@ -8,6 +8,8 @@ lista de sesiones.
 (4 selectores de color: fondo, tarjeta, texto, acento).
 - Datos en localStorage. mejor racha calculada en `app.js`, junto a la actual.
 - Total de minutos estudiados esta semana (lunes a hoy) en tarjeta propia bajo las rachas.
+- Skill de OpenCode `local-dates` en `.opencode/skills/local-dates/SKILL.md`: guía de fechas
+locales. El comando `feature.md` sigue siendo un comando (`/feature`), no una skill.
 ## Decisiones (y por qué)
 - Sin backend ni dependencias: cualquiera debe poder abrirlo con doble clic.
 - Fecha editable en el formulario: permite registrar días pasados y ver la racha crecer.
@@ -26,6 +28,8 @@ calculan con los colores viejos y no reaccionan al tema que sobrescribe `body`.
 - El id `tema` ya es del campo «Tema» del formulario; el selector usa `selector-tema`.
 - Comparar días con `setDate`, nunca restando milisegundos: los cambios de hora (DST)
 desplazan el resultado.
+- Las skills se descubren al iniciar la sesión: si creas un `SKILL.md` con OpenCode ya
+abierto, haz `opencode reload` o abre una sesión nueva. Se invocan con `@id`, no con `/id`.
 - AGENTS.md decía `date/topic/minutes`; el código real usa `fecha/tema/minutos/creadoEn`.
 Corregido el documento, no el código (renombrar rompería las sesiones guardadas).
 ## Próximos pasos
