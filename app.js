@@ -25,6 +25,10 @@ const numeroDiasMes = document.getElementById("dias-mes");
 const listaSesiones = document.getElementById("lista-sesiones");
 const selectorTema = document.getElementById("selector-tema");
 const panelColores = document.getElementById("colores-personalizados");
+const mapaMeses = document.getElementById("mapa-meses");
+const mapaRejilla = document.getElementById("mapa-rejilla");
+const mapaDetalle = document.getElementById("mapa-detalle");
+const mapaLeyenda = document.getElementById("mapa-leyenda");
 const entradasColor = {
   "--fondo": document.getElementById("color-fondo"),
   "--tarjeta": document.getElementById("color-tarjeta"),
@@ -74,7 +78,7 @@ function cargarSesiones() {
       }
     }
   } catch (error) {
-    console.error("No se pudieron leer las sesiones guardadas.", error);
+    // Si los datos guardados son ilegibles, seguimos con la lista vacía sin borrarlos.
     sesiones = [];
   }
 }
@@ -284,12 +288,75 @@ function calcularDiasEstudiadosMes() {
   return dias.size;
 }
 
+// Dibuja una sola vez la leyenda fija de los cinco estados del mapa
+function dibujarLeyenda() {
+  const niveles = [
+    { clase: "nivel-0", texto: "Sin estudio" },
+    { clase: "nivel-1", texto: "1-30 min (incluye sesión sin minutos)" },
+    { clase: "nivel-2", texto: "31-60 min" },
+    { clase: "nivel-3", texto: "61-120 min" },
+    { clase: "nivel-4", texto: "121+ min" }
+  ];
+
+  for (const nivel of niveles) {
+    const item = document.createElement("li");
+    const muestra = document.createElement("span");
+    muestra.className = "mapa-muestra " + nivel.clase;
+    const texto = document.createElement("span");
+    texto.textContent = nivel.texto;
+
+    item.appendChild(muestra);
+    item.appendChild(texto);
+    mapaLeyenda.appendChild(item);
+  }
+}
+
+// Dibuja las 12 semanas usando solo las funciones puras de logica.js
+function renderizarMapa() {
+  const hoy = fechaLocalComoTexto(new Date());
+  const mapa = logica.buildHeatMap(sesiones, hoy);
+
+  mapaMeses.innerHTML = "";
+  for (const etiqueta of mapa.etiquetasMes) {
+    const mes = document.createElement("span");
+    mes.className = "mapa-mes";
+    mes.textContent = etiqueta.texto;
+    mes.style.gridColumn = (etiqueta.columna + 1) + " / span 2";
+    mapaMeses.appendChild(mes);
+  }
+
+  mapaRejilla.innerHTML = "";
+  for (const celda of mapa.celdas) {
+    const cuadro = document.createElement("div");
+    cuadro.className = "mapa-celda nivel-" + celda.nivel;
+    cuadro.tabIndex = 0;
+    cuadro.setAttribute("role", "img");
+    cuadro.setAttribute("aria-label", celda.etiqueta);
+
+    const detalle = logica.formatTooltipDate(celda.fecha) + ": " +
+      (celda.texto === "" ? "Sin estudio registrado" : celda.texto);
+
+    function mostrarDetalle() {
+      mapaDetalle.textContent = detalle;
+    }
+
+    cuadro.addEventListener("mouseenter", mostrarDetalle);
+    cuadro.addEventListener("focus", function () {
+      mostrarDetalle();
+      cuadro.scrollIntoView({ block: "nearest", inline: "nearest" });
+    });
+
+    mapaRejilla.appendChild(cuadro);
+  }
+}
+
 // Dibuja en la pantalla la racha y la lista de sesiones
 function renderizar() {
   numeroRacha.textContent = calcularRacha();
   numeroMejorRacha.textContent = calcularMejorRacha();
   numeroMinutosSemana.textContent = calcularMinutosSemana();
   numeroDiasMes.textContent = calcularDiasEstudiadosMes();
+  renderizarMapa();
 
   listaSesiones.innerHTML = "";
 
@@ -391,6 +458,7 @@ function iniciar() {
     entradasColor[nombre].value = coloresPersonalizados[nombre];
   }
   aplicarTema();
+  dibujarLeyenda();
   cargarSesiones();
   campoFecha.value = fechaLocalComoTexto(new Date());
   renderizar();
