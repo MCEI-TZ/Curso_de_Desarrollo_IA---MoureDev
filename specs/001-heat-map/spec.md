@@ -83,8 +83,8 @@ Los términos siguientes tienen el mismo significado en toda la especificación:
   minuto utilizable, el sistema debe asignarle el nivel 1 (intensidad mínima).
 - CA-2.3 Si un día no tiene ninguna sesión con fecha válida y no futura, el sistema debe
   mostrarlo sin intensidad.
-- CA-2.4 El sistema debe ignorar por completo las sesiones con fecha futura o con formato
-  inesperado.
+- CA-2.4 El sistema debe excluir del cálculo del mapa las sesiones con fecha futura o con
+  formato inesperado, sin borrarlas ni modificarlas.
 - CA-2.5 El sistema debe tratar varias sesiones del mismo día como un único día, sumando
   sus minutos válidos.
 
@@ -93,10 +93,13 @@ Los términos siguientes tienen el mismo significado en toda la especificación:
 **Criterios de aceptación**
 
 - CA-3.1 El sistema debe ofrecer cuatro niveles de intensidad además del estado vacío.
-- CA-3.2 Cuando el total de minutos de un día esté entre 1 y 30, el sistema debe aplicar
-  el nivel 1; entre 31 y 60, el nivel 2; entre 61 y 120, el nivel 3; y 121 o más, el nivel 4.
+- CA-3.2 Cuando el total de minutos válidos de un día esté entre 1 y 30, el sistema debe
+  aplicar el nivel 1; entre 31 y 60, el nivel 2; entre 61 y 120, el nivel 3; y 121 o más, el
+  nivel 4. Un día con sesión y sin minutos válidos recibe también el nivel 1, conforme a
+  CA-2.2.
 - CA-3.3 El sistema debe mostrar una leyenda con el significado de la celda vacía y los
-  rangos de minutos de los cuatro niveles.
+  rangos de minutos de los cuatro niveles, indicando que el nivel 1 incluye también los días
+  con sesión sin minutos válidos.
 - CA-3.4 El sistema debe mantener la misma escala para todos los días del rango, sin
   recalcularla según el día con más minutos.
 
@@ -109,8 +112,9 @@ Los términos siguientes tienen el mismo significado en toda la especificación:
 - CA-4.2 Cuando el puntero se sitúe sobre una celda o la celda reciba foco mediante
   teclado, el sistema debe mostrar la fecha de ese día en formato `dd/mm/aaaa` y sus minutos
   totales, o la indicación de minutos no disponibles cuando no haya ningún minuto válido.
-- CA-4.3 Si el día tiene alguna sesión pero no hay minutos utilizables, el sistema debe
-  indicarlo claramente en lugar de mostrar una cifra engañosa.
+- CA-4.3 Si el día tiene alguna sesión con fecha válida y no futura pero no hay minutos
+  válidos, el sistema debe mostrar la indicación acordada en lugar de una cifra, de modo que
+  no se confunda con un día sin sesiones ni con un día con cero minutos.
 - CA-4.4 El sistema debe hacer accesible la misma información sin depender únicamente del
   color.
 
@@ -150,7 +154,8 @@ Los términos siguientes tienen el mismo significado en toda la especificación:
 - **Autonomía**: la visualización debe funcionar sin conexión ni recursos externos.
 - **Idioma**: todos los textos visibles, etiquetas y mensajes deben estar en español.
 - **Seguridad de los datos**: ninguna sesión existente puede perderse ni alterarse como
-  consecuencia de usar el mapa.
+  consecuencia de usar el mapa, incluso cuando sus fechas o minutos queden excluidos del
+  cálculo.
 
 ## Casos límite
 
