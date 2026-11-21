@@ -11,6 +11,7 @@ lista de sesiones.
 - Días estudiados este mes (mes natural local, día 1 a hoy) en tarjeta propia bajo la semana.
 - Diseño con aire de bitácora: cabecera con regla, serif del sistema para títulos y cifras,
 métricas semana+mes unidas y fondo de líneas muy tenues (sin fuentes externas).
+- Spec `specs/001-heat-map/spec.md` revisada por QA y corregida en 4 bloques; pendiente de implementar.
 - Skill de OpenCode `local-dates` en `.agents/skills/local-dates/SKILL.md`: guía de fechas
 locales. El comando `feature.md` sigue siendo un comando (`/feature`), no una skill.
 ## Decisiones (y por qué)
@@ -30,6 +31,9 @@ sin guardar estado, igual que la semana y la mejor racha. Minutos inválidos no 
 - AGENTS.md no se tocó: ya cubre fechas locales y métricas derivadas de las sesiones.
 - Todo lo visual se deriva de los 4 colores del tema (incluido el campo `--campo`): los 5
 temas y el personalizado siguen funcionando sin colores nuevos ni fuentes descargadas.
+- Mapa acordado: 12 semanas lunes-domingo, umbrales 1-30/31-60/61-120/121+; minutos malos
+= nivel 1; visual con tooltip; tarjeta tras semana/mes con scroll en móvil. Fuera: metas,
+selector, filtrar y borrar. Spec con definiciones y casos límite; 2 dudas antes del plan.
 ## Aprendizajes y errores a evitar
 - Inicio de semana con `(getDay() + 6) % 7` y `setDate()`: `getDay()` devuelve 0 en domingo.
 - Las variables CSS derivadas van en `body`, no en `:root`: si se declaran en `:root`, se
@@ -37,11 +41,10 @@ calculan con los colores viejos y no reaccionan al tema que sobrescribe `body`.
 - El id `tema` ya es del campo «Tema» del formulario; el selector usa `selector-tema`.
 - Comparar días con `setDate`, nunca restando milisegundos: los cambios de hora (DST)
 desplazan el resultado.
-- Las skills se descubren al iniciar la sesión: si creas un `SKILL.md` con OpenCode ya
-abierto, haz `opencode reload` o abre una sesión nueva. Se invocan con `@id`, no con `/id`.
-Ahora viven en `.agents/skills/` (antes `.opencode/skills/`).
+- Las skills se descubren al iniciar la sesión: usa `opencode reload` o sesión nueva si
+las creas con OpenCode abierto; se invocan con `@id`. Ahora viven en `.agents/skills/`.
 - AGENTS.md decía `date/topic/minutes`; el código real usa `fecha/tema/minutos/creadoEn`.
 Corregido el documento, no el código (renombrar rompería las sesiones guardadas).
 - Para abrir el proyecto desde la terminal en Linux: `xdg-open index.html` (`open` es de macOS).
 ## Próximos pasos
-- Si se añade borrado de sesiones, revisar si la mejor racha debe persistirse.
+- Resolver las 2 dudas del mapa antes del plan; si se añade borrado, revisar la mejor racha.
