@@ -235,9 +235,10 @@ Los términos siguientes tienen el mismo significado en toda la especificación:
 
 ## Dudas abiertas
 
-- [NECESITA ACLARACIÓN] ¿El mapa debe actualizarse automáticamente al cambiar de día o de
-  zona horaria con la aplicación abierta, o basta con recalcular al recargar y al guardar
-  una sesión, como ocurre con las métricas actuales?
-- [NECESITA ACLARACIÓN] Para un día con sesión pero minutos no disponibles, ¿qué texto
-  concreto debe mostrar la información al explorarlo: «Minutos no disponibles» o
-  «Sesión registrada»?
+Ninguna pendiente. Las dos dudas iniciales se resolvieron antes de elaborar el plan:
+
+- **Actualización**: el mapa se recalcula al recargar la vista y al guardar una sesión,
+  igual que las métricas actuales. No se detectan cambios de día ni de zona horaria con la
+  página abierta (aceptado: coherente con el requisito de rendimiento).
+- **Información al explorar**: un día con sesión pero sin minutos válidos muestra el texto
+  «Sesión registrada», sin ninguna cifra.
