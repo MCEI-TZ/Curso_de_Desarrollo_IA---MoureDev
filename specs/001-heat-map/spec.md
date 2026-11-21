@@ -151,8 +151,9 @@ Los términos siguientes tienen el mismo significado en toda la especificación:
 
 ## Requisitos no funcionales
 
-- **Legibilidad**: los cuatro niveles de intensidad deben distinguirse entre sí y
-  contrastar con el fondo en los temas claros y oscuros ya disponibles.
+- **Legibilidad**: los cuatro niveles de intensidad y la celda vacía deben distinguirse
+  entre sí y contrastar con el fondo en todos los temas disponibles, incluido el
+  personalizado.
 - **Accesibilidad**: cada celda debe poder recibir foco, mostrar su información mediante
   texto y no depender solo del color para transmitir el nivel.
 - **Rendimiento**: el cálculo del mapa debe realizarse a partir de los datos disponibles en
@@ -163,6 +164,11 @@ Los términos siguientes tienen el mismo significado en toda la especificación:
 - **Seguridad de los datos**: ninguna sesión existente puede perderse ni alterarse como
   consecuencia de usar el mapa, incluso cuando sus fechas o minutos queden excluidos del
   cálculo.
+- **Conformidad**: la funcionalidad debe respetar los seis principios innegociables de la
+  constitución del proyecto. En particular, los cálculos de fechas y minutos deben estar
+  separados de la interfaz y recibir la fecha de hoy como parámetro; las pruebas deben
+  ejecutarse con el mecanismo propio del proyecto sin instalar paquetes y ninguna fase debe
+  avanzar con pruebas en rojo.
 
 ## Casos límite
 
@@ -216,7 +222,11 @@ Los términos siguientes tienen el mismo significado en toda la especificación:
 - La spec ha sido aprobada y las dudas marcadas como `[NECESITA ACLARACIÓN]` que afecten
   a la implementación quedan resueltas antes de elaborar el plan.
 - Las reglas de rango, suma de minutos, niveles y manejo de datos inválidos están cubiertas
-  por pruebas automatizadas incluidas en el proyecto, y todas pasan.
+  por pruebas automatizadas, ejecutadas con el mecanismo propio del proyecto y sin instalar
+  paquetes; todas pasan antes de avanzar.
+- Se ha verificado el cumplimiento de la constitución del proyecto: los cálculos no dependen
+  de la interfaz ni del almacenamiento y reciben la fecha de hoy como parámetro, y ninguna
+  sesión guardada se modifica al usar el mapa.
 - La verificación en el navegador confirma que el mapa aparece tras las métricas, muestra
   12 semanas, refleja nuevas sesiones y no produce errores en la consola.
 - La vista de 375 px se ha comprobado con desplazamiento horizontal y celdas legibles.
@@ -225,9 +235,9 @@ Los términos siguientes tienen el mismo significado en toda la especificación:
 
 ## Dudas abiertas
 
-- [NECESITA ACLARACIÓN] ¿El mapa debe actualizarse automáticamente al cambiar de día con
-  la aplicación abierta, o basta con recalcular al recargar y al guardar una sesión, como
-  ocurre con las métricas actuales?
+- [NECESITA ACLARACIÓN] ¿El mapa debe actualizarse automáticamente al cambiar de día o de
+  zona horaria con la aplicación abierta, o basta con recalcular al recargar y al guardar
+  una sesión, como ocurre con las métricas actuales?
 - [NECESITA ACLARACIÓN] Para un día con sesión pero minutos no disponibles, ¿qué texto
   concreto debe mostrar la información al explorarlo: «Minutos no disponibles» o
   «Sesión registrada»?
