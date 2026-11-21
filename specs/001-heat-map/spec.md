@@ -117,6 +117,8 @@ Los términos siguientes tienen el mismo significado en toda la especificación:
   no se confunda con un día sin sesiones ni con un día con cero minutos.
 - CA-4.4 El sistema debe hacer accesible la misma información sin depender únicamente del
   color.
+- CA-4.5 Cuando una celda reciba foco mediante teclado y esté fuera del área visible, el
+  sistema debe desplazar el mapa para que la celda quede visible.
 
 ### RF-5 — Datos y actualización
 
@@ -130,6 +132,8 @@ Los términos siguientes tienen el mismo significado en toda la especificación:
   funcionalidad.
 - CA-5.4 El sistema debe mostrar el mapa vacío, sin errores, cuando no haya ninguna
   sesión registrada.
+- CA-5.5 Si los datos guardados no pueden leerse o tienen una forma inesperada, el sistema
+  debe mostrar el mapa vacío sin errores y no debe sobrescribirlos al usarlo.
 
 ### RF-6 — Ubicación y comportamiento en móvil
 
@@ -141,6 +145,9 @@ Los términos siguientes tienen el mismo significado en toda la especificación:
   desplazamiento horizontal del mapa sin reducir las celdas por debajo de 16 px de lado.
 - CA-6.3 El sistema debe mantener visibles las etiquetas de días y meses mientras se
   desplaza el mapa horizontalmente.
+- CA-6.4 Cuando el ancho disponible sea inferior a 375 px, en tabletas o en orientación
+  horizontal, el sistema debe aplicar el mismo criterio de celdas legibles y desplazamiento
+  horizontal.
 
 ## Requisitos no funcionales
 
@@ -161,17 +168,37 @@ Los términos siguientes tienen el mismo significado en toda la especificación:
 
 - **Día sin sesiones**: celda vacía.
 - **Día con varias sesiones**: se suman los minutos válidos y se aplica un solo nivel.
-- **Día con sesiones pero minutos ausentes, cero, negativos o no numéricos**: nivel 1,
-  con indicación de minutos no disponibles al explorarlo.
-- **Fecha futura**: se ignora la sesión; el día se muestra vacío aunque tenga registro.
-- **Fecha con formato inesperado**: se ignora la sesión.
+- **Sesiones duplicadas exactamente**: cada registro cuenta por separado y sus minutos se
+  suman; el mapa no las fusiona ni las descarta.
+- **Día con minutos válidos y no válidos a la vez**: solo suman los válidos; si hay al menos
+  uno, el nivel se calcula con esa suma y no se aplica el caso de minutos no disponibles.
+- **Día con sesiones pero minutos ausentes, cero, negativos, no numéricos o fraccionarios**:
+  nivel 1, con indicación de minutos no disponibles al explorarlo.
+- **Fecha futura**: la sesión se excluye del cálculo; el día se muestra vacío aunque tenga
+  registro, y el registro se conserva.
+- **Fecha con formato inesperado**: la sesión se excluye del cálculo y se conserva.
+- **Fecha con aspecto válido pero calendario imposible** (por ejemplo mes `13` o
+  `2026-02-30`): se trata como formato inesperado; se excluye del cálculo y se conserva.
+- **Sesión anterior al inicio de las 12 semanas**: queda fuera del mapa, pero no se borra ni
+  se modifica.
 - **Hoy sin sesión**: la celda de hoy queda vacía; esto no modifica la racha actual, que
   sigue la regla ya vigente de permitir que la racha se mantenga viva desde ayer.
-- **Cambio de hora**: el mapa trabaja con días locales completos, sin depender de
-  diferencias entre horas ni de milisegundos.
+- **Cambio de hora o de zona horaria**: el mapa trabaja con días locales completos, sin
+  depender de diferencias entre horas ni de milisegundos. El recálculo con la aplicación
+  abierta tras un cambio de zona horaria queda recogido en dudas abiertas.
 - **Rango que cruza fin de año**: las etiquetas de mes indican también el año.
 - **Semana actual incompleta**: los días futuros de esa semana se muestran vacíos.
 - **Sin sesiones en absoluto**: el mapa se muestra vacío y la leyenda sigue visible.
+- **Datos guardados ilegibles o corruptos**: el mapa se muestra vacío y sin errores, sin
+  sobrescribir los datos al usarlo.
+- **Tema personalizado con colores extremos**: la celda vacía y los cuatro niveles siguen
+  distinguiéndose entre sí y del fondo.
+- **Anchos inferiores a 375 px, tabletas y orientación horizontal**: se mantiene el
+  desplazamiento horizontal y el tamaño mínimo de celda.
+- **Celda enfocada con teclado fuera del área visible**: el mapa se desplaza para hacerla
+  visible antes de mostrar su información.
+- **Cambio de tema con la aplicación abierta**: cambia solo la apariencia; no altera los
+  niveles calculados ni las sesiones.
 
 ## Fuera de alcance
 
