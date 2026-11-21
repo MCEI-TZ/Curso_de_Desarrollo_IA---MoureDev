@@ -6,15 +6,22 @@ body {
   --acento: #4f46e5;
 
   /* El resto se calcula solo a partir de los colores base */
-  --texto-suave: color-mix(in srgb, var(--texto) 62%, transparent);
-  --borde: color-mix(in srgb, var(--texto) 14%, transparent);
+  --texto-suave: color-mix(in srgb, var(--texto) 72%, transparent);
+  --borde: color-mix(in srgb, var(--texto) 16%, transparent);
   --acento-suave: color-mix(in srgb, var(--acento) 12%, var(--tarjeta));
+  --campo: color-mix(in srgb, var(--fondo) 55%, var(--tarjeta));
   --racha-inicio: color-mix(in srgb, var(--acento) 85%, black);
   --racha-fin: color-mix(in srgb, var(--acento) 65%, black);
 
   color-scheme: light;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: var(--fondo);
+  background-color: var(--fondo);
+  /* Líneas de cuaderno muy tenues: solo se ven en los márgenes */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 31px,
+    color-mix(in srgb, var(--texto) 3%, transparent) 31px 32px
+  );
   color: var(--texto);
   line-height: 1.5;
   padding: 24px 16px 40px;
@@ -57,23 +64,39 @@ body.tema-noche {
   margin: 0 auto;
 }
 
-h1 {
-  font-size: 1.75rem;
-  text-align: center;
+.cabecera {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
   margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--borde);
+}
+
+h1 {
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
 h2 {
-  font-size: 1.1rem;
-  margin-bottom: 16px;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--borde);
 }
 
 .tarjeta {
   background: var(--tarjeta);
-  border-radius: 16px;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
   padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 14px color-mix(in srgb, var(--texto) 8%, transparent);
+  margin-bottom: 16px;
 }
 
 /* Selector de tema */
@@ -82,7 +105,7 @@ h2 {
   align-items: center;
   justify-content: flex-end;
   gap: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
 
 .barra-tema label {
@@ -94,9 +117,9 @@ select {
   font-size: 0.95rem;
   font-family: inherit;
   color: var(--texto);
-  background: var(--tarjeta);
+  background: var(--campo);
   border: 1px solid var(--borde);
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 select:focus {
@@ -143,7 +166,8 @@ input[type="color"] {
   justify-content: center;
   gap: 28px;
   padding: 28px 20px;
-  background: linear-gradient(135deg, var(--racha-inicio), var(--racha-fin));
+  background: linear-gradient(120deg, var(--racha-inicio), var(--racha-fin));
+  border-color: transparent;
   color: #ffffff;
 }
 
@@ -160,18 +184,28 @@ input[type="color"] {
 }
 
 .racha-fuego {
-  font-size: 2.5rem;
+  font-size: 2rem;
+  opacity: 0.9;
+}
+
+.racha-numero,
+.racha-numero-mejor,
+.semana-numero,
+.mes-numero {
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-variant-numeric: tabular-nums;
 }
 
 .racha-numero {
-  font-size: 4rem;
-  font-weight: 800;
+  font-size: 3.75rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
   line-height: 1;
 }
 
 .racha-numero-mejor {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: 2.25rem;
+  font-weight: 600;
   line-height: 1;
 }
 
@@ -179,6 +213,42 @@ input[type="color"] {
   font-size: 1rem;
   opacity: 0.9;
   text-align: center;
+}
+
+/* Minutos de esta semana y días de este mes: una sola pieza partida en dos */
+.semana,
+.mes {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 16px 20px;
+}
+
+.semana {
+  margin-bottom: 0;
+  border-bottom-color: transparent;
+  border-radius: 12px 12px 0 0;
+}
+
+.mes {
+  margin-bottom: 20px;
+  border-radius: 0 0 12px 12px;
+}
+
+.semana-numero,
+.mes-numero {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--racha-inicio);
+}
+
+.semana-texto,
+.mes-texto {
+  font-size: 0.95rem;
+  color: var(--texto-suave);
 }
 
 /* Formulario */
@@ -199,9 +269,9 @@ input {
   font-size: 1rem;
   font-family: inherit;
   color: var(--texto);
-  background: var(--tarjeta);
+  background: var(--campo);
   border: 1px solid var(--borde);
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 input:focus {
@@ -220,7 +290,7 @@ button {
   color: #ffffff;
   background: var(--racha-inicio);
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
@@ -253,6 +323,7 @@ button:hover {
 
 .sesion-fecha {
   font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
   color: var(--texto-suave);
 }
 
@@ -261,9 +332,10 @@ button:hover {
   padding: 4px 10px;
   font-size: 0.85rem;
   font-weight: 600;
+  font-variant-numeric: tabular-nums;
   color: var(--racha-inicio);
   background: var(--acento-suave);
-  border-radius: 999px;
+  border-radius: 8px;
 }
 
 .vacio {
@@ -272,8 +344,123 @@ button:hover {
   color: var(--texto-suave);
 }
 
-/* En móvil, las dos rachas se apilan */
+/* Mapa de calor: doce semanas en columnas, con los días de lunes a domingo */
+.mapa {
+  --celda: 24px;
+  --hueco: 4px;
+  --ancho-dia: 20px;
+}
+
+.mapa-contenedor {
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.mapa-meses {
+  display: grid;
+  grid-template-columns: repeat(12, var(--celda));
+  gap: var(--hueco);
+  width: max-content;
+  margin-left: calc(var(--ancho-dia) + 6px);
+  margin-bottom: 4px;
+}
+
+.mapa-mes {
+  font-size: 0.7rem;
+  color: var(--texto-suave);
+  white-space: nowrap;
+}
+
+.mapa-cuerpo {
+  display: flex;
+  gap: 6px;
+  width: max-content;
+}
+
+.mapa-dias {
+  display: grid;
+  grid-template-rows: repeat(7, var(--celda));
+  gap: var(--hueco);
+  width: var(--ancho-dia);
+  flex-shrink: 0;
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--tarjeta);
+}
+
+.mapa-dias span {
+  font-size: 0.7rem;
+  line-height: var(--celda);
+  color: var(--texto-suave);
+  text-align: center;
+}
+
+.mapa-rejilla {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, var(--celda));
+  grid-auto-columns: var(--celda);
+  gap: var(--hueco);
+}
+
+.mapa-celda {
+  width: var(--celda);
+  height: var(--celda);
+  border: 1px solid var(--borde);
+  border-radius: 4px;
+}
+
+.mapa-celda:focus-visible {
+  outline: 2px solid var(--texto);
+  outline-offset: 1px;
+}
+
+.nivel-0 { background: var(--campo); }
+.nivel-1 { background: color-mix(in srgb, var(--acento) 25%, var(--tarjeta)); }
+.nivel-2 { background: color-mix(in srgb, var(--acento) 50%, var(--tarjeta)); }
+.nivel-3 { background: color-mix(in srgb, var(--acento) 75%, var(--tarjeta)); }
+.nivel-4 { background: var(--acento); }
+
+.mapa-detalle {
+  min-height: 1.5em;
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+}
+
+.mapa-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 8px;
+  list-style: none;
+  font-size: 0.75rem;
+  color: var(--texto-suave);
+}
+
+.mapa-leyenda li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mapa-muestra {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  border: 1px solid var(--borde);
+  border-radius: 3px;
+}
+
+/* En móvil, la cabecera se apila y las dos rachas también */
 @media (max-width: 480px) {
+  .cabecera {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
   .racha {
     flex-direction: column;
     gap: 16px;

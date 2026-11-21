@@ -8,19 +8,21 @@
 </head>
 <body>
   <main class="contenedor">
-    <h1>Diario de Estudio</h1>
+    <header class="cabecera">
+      <h1>Diario de Estudio</h1>
 
-    <!-- Menú para elegir el tema -->
-    <div class="barra-tema">
-      <label for="selector-tema">Tema visual</label>
-      <select id="selector-tema">
-        <option value="claro">Claro</option>
-        <option value="arena">Arena</option>
-        <option value="oscuro">Oscuro</option>
-        <option value="noche">Noche</option>
-        <option value="personalizado">Personalizado</option>
-      </select>
-    </div>
+      <!-- Menú para elegir el tema -->
+      <div class="barra-tema">
+        <label for="selector-tema">Tema visual</label>
+        <select id="selector-tema">
+          <option value="claro">Claro</option>
+          <option value="arena">Arena</option>
+          <option value="oscuro">Oscuro</option>
+          <option value="noche">Noche</option>
+          <option value="personalizado">Personalizado</option>
+        </select>
+      </div>
+    </header>
 
     <!-- Colores del tema personalizado -->
     <section class="tarjeta" id="colores-personalizados" hidden>
@@ -58,6 +60,42 @@
       </div>
     </section>
 
+    <!-- Minutos estudiados esta semana -->
+    <section class="tarjeta semana">
+      <span class="semana-numero" id="minutos-semana">0</span>
+      <span class="semana-texto">minutos esta semana</span>
+    </section>
+
+    <!-- Días estudiados este mes -->
+    <section class="tarjeta mes">
+      <span class="mes-numero" id="dias-mes">0</span>
+      <span class="mes-texto">días estudiados este mes</span>
+    </section>
+
+    <!-- Mapa de calor de las últimas 12 semanas -->
+    <section class="tarjeta mapa">
+      <h2>Mapa de calor</h2>
+      <div class="mapa-contenedor" id="mapa-contenedor">
+        <div class="mapa-meses" id="mapa-meses"></div>
+        <div class="mapa-cuerpo">
+          <div class="mapa-dias">
+            <span>L</span>
+            <span>M</span>
+            <span>X</span>
+            <span>J</span>
+            <span>V</span>
+            <span>S</span>
+            <span>D</span>
+          </div>
+          <div class="mapa-rejilla" id="mapa-rejilla"></div>
+        </div>
+      </div>
+      <p class="mapa-detalle" id="mapa-detalle" role="status">
+        Pasa el puntero o enfoca un día para ver su información.
+      </p>
+      <ul class="mapa-leyenda" id="mapa-leyenda"></ul>
+    </section>
+
     <!-- Formulario para registrar una sesión -->
     <section class="tarjeta">
       <h2>Nueva sesión</h2>
@@ -88,6 +126,7 @@
     </section>
   </main>
 
+  <script src="logica.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
