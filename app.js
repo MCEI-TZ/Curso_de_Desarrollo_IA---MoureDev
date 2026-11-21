@@ -21,6 +21,7 @@ const campoMinutos = document.getElementById("minutos");
 const numeroRacha = document.getElementById("racha-numero");
 const numeroMejorRacha = document.getElementById("mejor-racha-numero");
 const numeroMinutosSemana = document.getElementById("minutos-semana");
+const numeroDiasMes = document.getElementById("dias-mes");
 const listaSesiones = document.getElementById("lista-sesiones");
 const selectorTema = document.getElementById("selector-tema");
 const panelColores = document.getElementById("colores-personalizados");
@@ -259,11 +260,36 @@ function calcularMinutosSemana() {
   return total;
 }
 
+// Cuenta los días distintos con sesión en el mes actual, desde el día 1 hasta hoy.
+// Se deriva de las sesiones en cada renderizado: no se guarda ningún dato nuevo.
+function calcularDiasEstudiadosMes() {
+  const hoy = new Date();
+  const fin = fechaLocalComoTexto(hoy);
+  // getMonth() ya devuelve 0-11, por eso no se resta 1 al construir el día 1.
+  const inicio = fechaLocalComoTexto(new Date(hoy.getFullYear(), hoy.getMonth(), 1));
+  const dias = new Set();
+
+  for (const sesion of sesiones) {
+    const texto = sesion.fecha;
+
+    if (typeof texto !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(texto)) {
+      continue;
+    }
+    if (texto < inicio || texto > fin) {
+      continue;
+    }
+    dias.add(texto);
+  }
+
+  return dias.size;
+}
+
 // Dibuja en la pantalla la racha y la lista de sesiones
 function renderizar() {
   numeroRacha.textContent = calcularRacha();
   numeroMejorRacha.textContent = calcularMejorRacha();
   numeroMinutosSemana.textContent = calcularMinutosSemana();
+  numeroDiasMes.textContent = calcularDiasEstudiadosMes();
 
   listaSesiones.innerHTML = "";
 
