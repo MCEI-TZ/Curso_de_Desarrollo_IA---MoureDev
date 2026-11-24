@@ -11,6 +11,8 @@ lista de sesiones.
 - Días estudiados este mes (mes natural local, día 1 a hoy) en tarjeta propia bajo la semana.
 - Diseño con aire de bitácora: cabecera con regla, serif del sistema para títulos y cifras,
 métricas semana+mes unidas y fondo de líneas muy tenues (sin fuentes externas).
+- Git: `main` actualizado a `7d4a086`; rama local `DayTwo` eliminada con sus 3 commits
+  (descartados a petición); `origin/DayTwo` conservado. Trabajo actual en `DayThree`.
 - Mapa terminado y auditado (T1-T3): `logica.js`, interfaz; 12/12 tests y auditoría RF-1 a RF-6
   en Chrome sin fallos. Salvedad CA-6.3: días sticky, meses se desplazan con sus columnas.
 - Skill de OpenCode `local-dates` en `.agents/skills/local-dates/SKILL.md`: guía de fechas
@@ -29,7 +31,6 @@ Sin temporizador: se actualiza al recargar o al guardar una sesión (aceptado).
 - Mes natural local y contado hasta hoy: cuenta días únicos con fecha válida y no futura,
 sin guardar estado, igual que la semana y la mejor racha. Minutos inválidos no lo impiden
 (coherente con las rachas, que solo miran la fecha). Sin temporizador (aceptado).
-- AGENTS.md no se tocó: ya cubre fechas locales y métricas derivadas de las sesiones.
 - Todo lo visual se deriva de los 4 colores del tema (incluido el campo `--campo`): los 5
 temas y el personalizado siguen funcionando sin colores nuevos ni fuentes descargadas.
 - Mapa acordado: 12 semanas lunes-domingo, umbrales 1-30/31-60/61-120/121+; minutos malos
@@ -47,5 +48,6 @@ desplazan el resultado.
 - Skills: se descubren al iniciar sesión (`opencode reload`); se invocan con `@id`; viven en `.agents/skills/`.
 - AGENTS.md decía `date/topic/minutes`; el código usa `fecha/tema/minutos/creadoEn`: corregí el documento, no el código (renombrar rompería las sesiones).
 - Para abrir el proyecto desde la terminal en Linux: `xdg-open index.html` (`open` es de macOS).
+- El MCP de Chrome DevTools falla aquí: busca Chrome stable en `/opt/google/chrome/chrome`, que no existe (el navegador es Vivaldi). Para abrir, usar `xdg-open`; para verificar con MCP haría falta Chrome o configurar el MCP con Vivaldi.
 ## Próximos pasos
 - Si se añade borrado de sesiones, revisar si la mejor racha debe bajar y actualizar los tests.
