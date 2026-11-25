@@ -13,7 +13,8 @@ lista de sesiones.
 métricas semana+mes unidas y fondo de líneas muy tenues (sin fuentes externas).
 - Git: `main` actualizado a `7d4a086`; rama local `DayTwo` eliminada con sus 3 commits
   (descartados a petición); `origin/DayTwo` conservado. Trabajo actual en `DayThree`,
-  con 10 commits (skill SDD + 8 comandos + memoria) subidos a `origin/DayThree`; sin PR.
+  con 12 commits (skill SDD + 8 comandos + agentes/corrección YAML + memoria) subidos a
+  `origin/DayThree`; sin PR.
 - Mapa terminado y auditado (T1-T3): `logica.js`, interfaz; 12/12 tests y auditoría RF-1 a RF-6
   en Chrome sin fallos. Salvedad CA-6.3: días sticky, meses se desplazan con sus columnas.
 - Skill de OpenCode `local-dates` en `.agents/skills/local-dates/SKILL.md`: guía de fechas
