@@ -1,6 +1,5 @@
 ---
-description: SDD · Implementa UNA tarea, tests primero (uso - /sdd-implement 002-nombre
-T3)
+description: "SDD · Implementa UNA tarea, tests primero (uso: /sdd-implement 002-nombre T3)"
 agent: build
 ---
 

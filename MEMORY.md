@@ -48,7 +48,7 @@ desplazan el resultado.
 - `logica.js` debe exponer `globalThis.logica` en el navegador: con `module.exports` solo funciona en Node y el mapa sale vacío.
 - Skills: se descubren al iniciar sesión (`opencode reload`); se invocan con `@id`; viven en `.agents/skills/`.
 - AGENTS.md decía `date/topic/minutes`; el código usa `fecha/tema/minutos/creadoEn`: corregí el documento, no el código (renombrar rompería las sesiones).
-- Para abrir el proyecto desde la terminal en Linux: `xdg-open index.html` (`open` es de macOS).
-- El MCP de Chrome DevTools falla aquí: busca Chrome stable en `/opt/google/chrome/chrome`, que no existe (el navegador es Vivaldi). Para abrir, usar `xdg-open`; para verificar con MCP haría falta Chrome o configurar el MCP con Vivaldi.
+- Para abrir el proyecto desde la terminal en Linux: `xdg-open index.html` (`open` es de macOS). El MCP de Chrome DevTools falla aquí: busca Chrome stable en `/opt/google/chrome/chrome`, que no existe (navegador es Vivaldi); con MCP haría falta Chrome o configurar Vivaldi.
+- Frontmatter YAML de agentes/comandos: `resource:`/`effect:` van indentados bajo `- action:`, y un `:` dentro de un valor va entre comillas. Si no, OpenCode 2.3.2 descarta el archivo (`... reason=markdown`). Ya corregidos los 4 agentes y `/sdd-implement`; `opencode debug agents` los lista. `coordinator` es `mode: primary`, así que no aparece en el catálogo de subagentes.
 ## Próximos pasos
 - Si se añade borrado de sesiones, revisar si la mejor racha debe bajar y actualizar los tests.
